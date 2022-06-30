@@ -131,6 +131,12 @@ public class UserDAO {
         );
     }
 	
+	public boolean checkLogin(String email, String password) {
+        String sql = "select count(*) from user where binary email=? && binary password=?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, email, password);
+        return count != null && count > 0;
+    }
+	
 //	public List<UserResponseDTO> selectUserByIdOrName(String id, String name){
 //	String sql = "select * form user where user_id like = ? or user_name like = ?";
 //	return jdbcTemplate.query(sql,

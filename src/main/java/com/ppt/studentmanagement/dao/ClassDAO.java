@@ -5,7 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.ppt.studentmanagement.dto.*;
+import com.ppt.studentmanagement.dto.ClassRequestDTO;
+import com.ppt.studentmanagement.dto.ClassResponseDTO;
 
 @Repository
 public class ClassDAO {
@@ -32,6 +33,34 @@ public class ClassDAO {
 		rs.getString("class_id"),
 		rs.getString("class_name")));
 		}
+
+
+	public List<ClassResponseDTO> selectCoursesByStudentId(String studentid) {
+		String sql = "select class.class_name, class.class_id from selected_courses join class "
+				+ "on selected_courses.class_id = class.class_id where selected_courses.student_id = ? ";
+		return jdbcTemplate.query(sql, (rs, rowNum) -> new ClassResponseDTO(
+		rs.getString("class_id"),
+		rs.getString("class_name")),
+		studentid);
+	}
+	
+	public List<String> selectCidByStuid(String studentid) {
+		String sql = "select class.class_name, class.class_id from selected_courses join class "
+				+ "on selected_courses.class_id = class.class_id where selected_courses.student_id = ? ";
+		return jdbcTemplate.query(sql, (rs, rowNum) -> 
+		rs.getString("class_name"),
+		studentid);
+	}
+	
+//	public List<ClassResponseDTO> selectCoursesByStudentId(String student_id) {		
+//	String sql = "select class.class_name, class.class_id from selected_courses join class "
+//	+ "on selected_courses.class_id = class.class_id where selected_courses.student_id = ? ";
+//		return jdbcTemplate.query(sql, (rs, rowNum) -> new ClassResponseDTO(
+//				rs.getString("class_id"),
+//				rs.getString("class_name")),
+//				student_id);
+//	}
+}
 	
 //	public int checkClassname(String name) {
 //		String sql = "select * from class where class_name=?";
@@ -39,26 +68,6 @@ public class ClassDAO {
 //		rs.getString("class_id"),
 //		rs.getString("class_name")),
 //		name);
-//	}
-	
-//	public ArrayList<ClassResponseDTO> selectAll(){
-//		ArrayList<ClassResponseDTO> list=new ArrayList();
-//		String sql="select * from class";		
-//		try {
-//		PreparedStatement ps=con.prepareStatement(sql);
-//		ResultSet rs=ps.executeQuery();
-//		while(rs.next()) {
-//			ClassResponseDTO res=new ClassResponseDTO();
-//			res.setClassid(rs.getString("class_id"));
-//			res.setClassname(rs.getString("class_name"));
-//			list.add(res);
-//}
-//	} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			System.out.println("Database error in selecting class data.");
-//		}
-//		return list;
 //	}
 	
 //	public boolean checkId(String id) {
@@ -75,4 +84,3 @@ public class ClassDAO {
 //		}
 //		return false;
 //	}
-}

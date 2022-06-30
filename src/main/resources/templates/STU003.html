@@ -51,24 +51,24 @@
       </div>
       <div class="main_contents">
     <div id="sub_content">
-      <form class="row g-3 mt-3 ms-2">
+      <form action = "searchstudent" method = "post" class="row g-3 mt-3 ms-2">
         <div class="col-auto">
           <label for="staticEmail2" class="visually-hidden">studentID</label>
-          <input type="text"  class="form-control" id="staticEmail2" placeholder="Student ID">
+          <input type="text"  class="form-control" id="staticEmail2" placeholder="Student ID" name = "id">
         </div>
         <div class="col-auto">
           <label for="inputPassword2" class="visually-hidden">studentName</label>
-          <input type="text" class="form-control" id="inputPassword2" placeholder="Student Name">
+          <input type="text" class="form-control" id="inputPassword2" placeholder="Student Name" name = "name">
         </div>
         <div class="col-auto">
             <label for="inputPassword2" class="visually-hidden">Course</label>
-            <input type="text" class="form-control" id="inputPassword2" placeholder="Course">
+            <input type="text" class="form-control" id="inputPassword2" placeholder="Course" name = "course">
           </div>
         <div class="col-auto">
           <button type="submit" class="btn btn-success mb-3">Search</button>
         </div>
         <div class="col-auto">
-          <button type="submit" class="btn btn-secondary mb-3">Reset</button>
+          <button type="reset" class="btn btn-secondary mb-3">Reset</button>
         </div>
       </form>
 <div>
@@ -79,36 +79,23 @@
             <th scope="col">Student ID</th>
             <th scope="col">Name</th>
             <th scope="col">Course Name</th>
-            <th scope="col">Details</th>
+			<th scope="col">Details</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>STU0001</td>
-            <td>Thu</td>
-            <td>Java</td>
+       <!--  -->
+        <tbody th:with = "count=0">
+          <tr th:each="data: ${studentList}">
+            <td th:text="${dataStat.index+1}"/>
+            <td th:text="${data.studentid}" />
+            <td th:text="${data.studentname}"/>
+            <!-- <td></td> attendCourses-->
+             
             <td>
-              <a href="STU002.html"><button type="submit" class="btn btn-secondary mb-2">See More</button></a> 
+            <span th:each="cou: ${data.attendCourses}" th:text="${cou}+','"></span>
             </td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>STU0001</td>
-            <td>Thu</td>
-            <td>java</td>
             <td>
-              <a href="STU002.html"><button type="submit" class="btn btn-secondary mb-2">See More</button></a> 
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>STU0001</td>
-            <td>Thu</td>
-            <td>Java</td>
-            <td>
-              <a href="STU002.html"><button type="submit" class="btn btn-secondary mb-2">See More</button></a>
-              <!-- <a href="STU002.html" class="text-decoration-none">See more</a> -->
+            <!-- <a th:href="@{/setupUpdateUser(id=${data.userid})}"> -->
+              <a th:href="@{/studentdetail(id=${data.studentid})}"><button type="button" class="btn btn-secondary mb-2">See More</button></a> 
             </td>
           </tr>
         </tbody>
