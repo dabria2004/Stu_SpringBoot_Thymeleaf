@@ -168,7 +168,25 @@ public class StudentController {
 	@PostMapping("/searchstudent")
 	public String searchStudent(@RequestParam("id") String id, @RequestParam("name") String name,
 			@RequestParam("course") String course, ModelMap model) {
-				return course;
-		
+		String sid = id.isBlank() ? ")#<>(}" : id;
+		String sname = name.isBlank() ? ")#<>(}" : name;
+		String scourse = course.isBlank() ? ")#<>(}" : course;
+		System.out.println( "sid => " + sid + " " + "sname => " + sname + " " + "scourse => " + scourse);
+		List<StudentResponseDTO> studentList = studentDao.selectStudentListByIdOrNameOrCourse(sid, sname, scourse);
+		for (StudentResponseDTO student : studentList) {
+			List<String> clist = classDao.selectCidByStuid(student.getStudentid());
+			student.setAttendCourses(clist);
+		}
+		if (studentList.size() == 0) {
+			studentList = studentDao.selectAll();
+			for (StudentResponseDTO student : studentList) {
+				List<String> clist = classDao.selectCidByStuid(student.getStudentid());
+				student.setAttendCourses(clist);
+			}
+			model.addAttribute("studentList", studentList);
+			return "STU003";
+		}
+		model.addAttribute("studentList", studentList);
+		return "STU003";	
 	}
 }

@@ -83,7 +83,7 @@
           </tr>
         </thead>
        <!--  -->
-        <tbody th:with = "count=0">
+        <tbody>
           <tr th:each="data: ${studentList}">
             <td th:text="${dataStat.index+1}"/>
             <td th:text="${data.studentid}" />

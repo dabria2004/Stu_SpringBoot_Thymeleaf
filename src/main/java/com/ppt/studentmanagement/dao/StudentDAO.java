@@ -81,11 +81,7 @@ public class StudentDAO {
 				+ "where student.student_id like ? or student.student_name like ? or class.class_name like ?";
 		return jdbcTemplate.query(sql, (rs, rowNum) -> new StudentResponseDTO(
 				rs.getString("student_id"),
-				rs.getString("student_name"),
-				rs.getString("dob"),
-				rs.getString("gender"),
-				rs.getString("phone"),
-				rs.getString("education")),
+				rs.getString("student_name")),
 				"%" + id + "%",
 				"%" + name + "%",
 				"%" + course + "%");

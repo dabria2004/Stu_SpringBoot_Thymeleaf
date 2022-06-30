@@ -28,4 +28,11 @@ public class StudentResponseDTO {
 		this.phone = phone;
 		this.education = education;
 	}
+	public StudentResponseDTO(String studentid, String studentname) {
+		super();
+		this.studentid = studentid;
+		this.studentname = studentname;
+	}
+	
+	
 }
