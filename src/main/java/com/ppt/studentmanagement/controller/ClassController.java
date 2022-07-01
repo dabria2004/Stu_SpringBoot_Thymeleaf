@@ -2,6 +2,8 @@ package com.ppt.studentmanagement.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +24,7 @@ public class ClassController {
 	ClassDAO cdao;
 	
 	@GetMapping(value = "/setupaddclass")
-	public ModelAndView setupaddclass(ModelMap model) {
-		ClassBean cbean = new ClassBean();
+	public ModelAndView setupaddclass(ModelMap model, ClassBean cbean) {
 		List<ClassResponseDTO> classlist = cdao.selectAll();
 		if (classlist.size() == 0) {
 			cbean.setClassid("COU001");
@@ -46,15 +47,15 @@ public class ClassController {
 		String classid = String.format("COU%03d", tempId);
 		cbean.setClassid(classid);
 		}
-		model.addAttribute("successMessage", "Successfully Registered!!");
+		model.addAttribute("success", "Successfully Registered!!");
 		return new ModelAndView("BUD003", "cbean", cbean);
 	}
 	
 	@RequestMapping(value = "/addclass", method = RequestMethod.POST)
-	public String addclass(@ModelAttribute("cbean") ClassBean cbean, ModelMap model) {
-//		if(bs.hasErrors()) {
-//			return "addClass";
-//		}
+	public String addclass(@ModelAttribute("cbean") @Validated ClassBean cbean, BindingResult bs, ModelMap model) {
+		if(bs.hasErrors()) {
+			return "BUD003";
+		}
 		if (cbean.getClassid().equals("") || cbean.getClassname().equals("")) {
 			model.addAttribute("error", "You must fullfill the fields!!");
 			return "BUD003";

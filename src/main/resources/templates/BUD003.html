@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,9 +24,12 @@
 					<a href="menu"><h3>Student Registration</h3></a>
 				</div>
 				<div class="col-md-6">
-					<p>User: USR001 Harry</p>
-					<p>Current Date : YY.MM.DD</p>
-				</div>
+            <p>User: 
+	            <th:block th:text="${session.userInfo.userid}"></th:block>
+	            <th:block th:text="${session.userInfo.username}"></th:block>
+            </p>
+            <p>Current Date : <th:block th:text="${session.date}"></th:block></p>
+        </div>
 				<div class="col-md-1">
 					<input type="button" class="btn-basic" id="lgnout-button"
 						value="Log Out" onclick="location.href='logout'">
@@ -52,9 +54,28 @@
 		<div class="main_contents">
 			<div id="sub_content">
 				<form action="addclass" method="post" th:object="${cbean}">
-					<div style="color: red;">
+					<!-- <div style="color: red;">
 						<h2 th:text="${successMessage}">Error</h2>
-					</div>
+					</div> -->
+					
+					<!-- <p><th:block th:text="${error}"></th:block></p> -->
+						
+			<div class="row mb-4">
+				<div class="col-md-2"></div>
+					<label for="name" class="col-md-2 col-form-label"></label>
+					<div class="col-md-4">
+					<div th:if="${success}" th:text="${success}" class = "alert alert-success"></div>
+				</div>
+			</div>	
+			<!-- <div class="row mb-4">
+				<div class="col-md-2"></div>
+					<label for="name" class="col-md-2 col-form-label"></label>
+					<div class="col-md-4">
+					<div th:if="${success}" th:text="${success}" class = "alert alert-success"></div>
+				</div>
+			</div> -->
+						
+					
 					<!-- <span th:if="${errorMessage}"  th:text="${errorMessage}">Error</span> -->
 					<h2 class="col-md-6 offset-md-2 mb-5 mt-4">Course Registration</h2>
 					<div class="row mb-4">
@@ -70,6 +91,7 @@
 						<label for="name" class="col-md-2 col-form-label">Name</label>
 						<div class="col-md-4">
 							<input type="text" class="form-control" id="name" th:field="*{classname}">
+							<label th:if="${#fields.hasErrors('classname')}" th:errors="*{classname}" style="color: red;">Error</label>
 						</div>
 					</div>
 

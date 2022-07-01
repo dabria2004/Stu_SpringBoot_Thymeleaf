@@ -1,5 +1,7 @@
 package com.ppt.studentmanagement.dao;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -126,27 +128,25 @@ public class UserDAO {
                 				rs.getString("user_email"),
                 				rs.getString("user_password"),
                 				rs.getString("user_conpassword"),
-                				rs.getString("user_role")
-                        )
-        );
+                				rs.getString("user_role")));
     }
 	
 	public boolean checkLogin(String email, String password) {
-        String sql = "select count(*) from user where binary email=? && binary password=?";
+        String sql = "select count(*) from user where binary user_email=? && binary user_password=?";
         Integer count = jdbcTemplate.queryForObject(sql, Integer.class, email, password);
         return count != null && count > 0;
     }
 	
-//	public List<UserResponseDTO> selectUserByIdOrName(String id, String name){
-//	String sql = "select * form user where user_id like = ? or user_name like = ?";
-//	return jdbcTemplate.query(sql,
-//			new Object[]{"%" + id + "%", "%" + name + "%"},
-//			(rs, rowNum) -> new UserResponseDTO(
-//			rs.getString("user_id"),
-//			rs.getString("user_name"),
-//			rs.getString("user_email"),
-//			rs.getString("user_password"),
-//			rs.getString("user_conpassword"),
-//			rs.getString("user_role")));
-//}
+	public UserResponseDTO selectUserByEmail(String email) {
+		String sql = "select * from user where user_email=?";
+		return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> new UserResponseDTO(
+				rs.getString("user_id"),
+				rs.getString("user_name"),
+				rs.getString("user_email"),
+				rs.getString("user_password"),
+				rs.getString("user_conpassword"),
+				rs.getString("user_role")),
+				email);
+	}
+	
 }

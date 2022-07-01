@@ -31,9 +31,12 @@
 					<a href="menu"><h3>Student Registration</h3></a>
 				</div>
 				<div class="col-md-6">
-					<p>User: USR001 Harry</p>
-					<p>Current Date : YY.MM.DD</p>
-				</div>
+            <p>User: 
+            <th:block th:text="${session.userInfo.userid}"></th:block>
+            <th:block th:text="${session.userInfo.username}"></th:block>
+            </p>
+            <p>Current Date : <th:block th:text="${session.date}"></th:block></p>
+        </div>
 				<div class="col-md-1">
 					<input type="button" class="btn-basic" id="lgnout-button"
 						value="Log Out" onclick="location.href='logout'">
@@ -62,6 +65,27 @@
 				<form action = "updateuser" method = "post" th:object="${bean}">
 
 					<h2 class="col-md-6 offset-md-2 mb-5 mt-4">User Update</h2>
+					<!-- <div class="row mb-4">
+				<div class="col-md-2"></div>
+					<label for="name" class="col-md-2 col-form-label"></label>
+					<div class="col-md-4">
+						<div th:if="${error}" th:text="${error}" class = "alert alert-danger"></div>
+					</div>
+			</div>
+			<div class="row mb-4">
+				<div class="col-md-2"></div>
+					<label for="name" class="col-md-2 col-form-label"></label>
+					<div class="col-md-4">
+						<div th:if="${password}" th:text="${password}" class = "alert alert-danger"></div>
+					</div>
+			</div> -->
+					<div style="color: red;">
+						<h2 class="col-md-6 offset-md-2 mb-5 mt-4" th:if="${password}" th:text="${password}"></h2>
+					</div> 
+					<div style="color: red;">
+						<h2 class="col-md-6 offset-md-2 mb-5 mt-4" th:if="${error}" th:text="${error}"></h2>
+					</div>
+					
 					<div class="row mb-4">
 						<div class="col-md-2"></div>
 						<label for="email" class="col-md-2 col-form-label">Id</label>

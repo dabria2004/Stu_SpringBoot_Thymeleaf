@@ -26,9 +26,12 @@
         <a href="menu"><h3>Student Registration</h3></a>
     </div>  
     <div class="col-md-6">
-        <p>User: USR001 Harry</p>
-        <p>Current Date : YY.MM.DD </p>
-    </div>  
+            <p>User: 
+            <th:block th:text="${session.userInfo.userid}"></th:block>
+            <th:block th:text="${session.userInfo.username}"></th:block>
+            </p>
+            <p>Current Date : <th:block th:text="${session.date}"></th:block></p>
+        </div> 
     <div class="col-md-1" >
         <input type="button" class="btn-basic" id="lgnout-button" value="Log Out" onclick="location.href='logout'">
     </div>        
@@ -88,13 +91,10 @@
             <td th:text="${dataStat.index+1}"/>
             <td th:text="${data.studentid}" />
             <td th:text="${data.studentname}"/>
-            <!-- <td></td> attendCourses-->
-             
             <td>
             <span th:each="cou: ${data.attendCourses}" th:text="${cou}+','"></span>
             </td>
             <td>
-            <!-- <a th:href="@{/setupUpdateUser(id=${data.userid})}"> -->
               <a th:href="@{/studentdetail(id=${data.studentid})}"><button type="button" class="btn btn-secondary mb-2">See More</button></a> 
             </td>
           </tr>

@@ -109,13 +109,6 @@ public class UserController {
 		return new ModelAndView("USR002","bean", userDao.selectUserById(dto));
 	}
 	
-//	@RequestMapping(value="/setupUpdateBook",method=RequestMethod.GET)
-//			public ModelAndView setupUpdatebook(@RequestParam("code") String bookCode) {
-//			BookRequestDTO dto=new BookRequestDTO();
-//			dto.setBookCode(bookCode);
-//			return new ModelAndView("updatebook","bookBean",bookDao.selectOne(dto));
-//			}
-	
 	@RequestMapping(value="/updateuser", method=RequestMethod.POST)
 	public String updatebook(@ModelAttribute("bean") UserBean bean, ModelMap model) {
 //		if(bs.hasErrors()) {

@@ -154,7 +154,7 @@ public class StudentController {
 		for (int i = 0; i < attendCourses.length; i++) {
 			studentDao.insertStudentCourse(sbean.getStudentid(), attendCourses[i]);
 		}
-		model.addAttribute("success", "Successfully updated!!");
+//		model.addAttribute("success", "Successfully updated!!");
 		return "redirect:/setupstudentsearch";
 	}
 	
