@@ -27,14 +27,15 @@ public class LoginController {
 	return "MNU001";
 	}
 	
-	@GetMapping(value="/login")
+	@GetMapping(value="/")
 	public String login(ModelMap model) {
 	return "LGN001";
 	}
 	
-	@GetMapping(value="/logout")
-	public String logout(ModelMap model) {
-	return "LGN001";
+	@GetMapping(value = "/logout")
+	public String logout(HttpSession session) {
+		session.removeAttribute("userInfo");
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value = "/welcomepage", method = RequestMethod.POST)

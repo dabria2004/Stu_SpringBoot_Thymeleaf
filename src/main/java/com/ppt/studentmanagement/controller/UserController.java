@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,14 +66,15 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/adduser", method=RequestMethod.POST)
-	public String adduser(@ModelAttribute("bean")UserBean bean,ModelMap model) {
-//		if(bs.hasErrors()) {
-//			return "USR001";
-//		}
-		if(bean.getUsername().isBlank() || bean.getUseremail().isBlank() || bean.getPassword().isBlank() || bean.getConpassword().isBlank() || bean.getRole().isBlank()) {
-			model.addAttribute("error", "You must fullfill the fields.");
+	public String adduser(@ModelAttribute("bean") @Validated UserBean bean,BindingResult bs, ModelMap model) {
+		
+		if(bs.hasErrors()) {
 			return "USR001";
-				}
+		}
+//		if(bean.getUsername().isBlank() || bean.getUseremail().isBlank() || bean.getPassword().isBlank() || bean.getConpassword().isBlank() || bean.getRole().isBlank()) {
+//			model.addAttribute("error", "You must fullfill the fields.");
+//			return "USR001";
+//				}
 		if(!bean.getPassword().equals(bean.getConpassword())) {
 			model.addAttribute("password", "Passwords do not match!!");
 			return "USR001";
@@ -110,10 +113,10 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/updateuser", method=RequestMethod.POST)
-	public String updatebook(@ModelAttribute("bean") UserBean bean, ModelMap model) {
-//		if(bs.hasErrors()) {
-//			return "USR002";
-//		}
+	public String updatebook(@ModelAttribute("bean") @Validated UserBean bean,BindingResult bs, ModelMap model) {
+		if(bs.hasErrors()) {
+			return "USR002";
+		}
 		if(bean.getUsername().isBlank() || bean.getUseremail().isBlank() || bean.getPassword().isBlank() || bean.getConpassword().isBlank() || bean.getRole().isBlank()) {
 			model.addAttribute("error", "You must fullfill the fields.");
 			return "USR002";

@@ -43,9 +43,9 @@
 			</button>
 
 			<div class="dropdown-container">
-				<a href="setupaddclass">Course Registration </a> <a
-					href="setupaddstudent">Student Registration </a> <a
-					href="setupstudentsearch">Student Search </a>
+				<a href="setupaddclass">Course Registration</a> 
+				<a href="setupaddstudent">Student Registration</a> 
+				<a href="setupstudentsearch">Student Search</a>
 			</div>
 			<a href="setupusersearch">Users Management</a>
 		</div>
@@ -57,22 +57,28 @@
 					<!-- <div class = "col-md-6" style="color: green;">
 						
 					</div> -->
+					<div style="color: green;"><h4 class = "col-md-6 offset-md-2 mb-5 mt-4 alert alert-success" 
+					th:if="${success}" th:text="${success}"></h4>
+					</div>
 					
-					<div class="row mb-4">
+					<!-- <div style="color: red;" class="col-md-6 offset-md-2 mb-5 mt-4 alert alert-danger" 
+					th:if="${error}" th:text="${error}">
+					</div> -->
+					<!-- <div class="row mb-4">
 						<div class="col-md-2"></div>
 						<label for="name" class="col-md-2 col-form-label"></label>
 						<div class="col-md-4">
 							<div th:if="${success}" th:text="${success}" class = "alert alert-success"></div>
 						</div>
-					</div>
+					</div> -->
 					
-					<div class="row mb-4">
+					<!-- <div class="row mb-4">
 						<div class="col-md-2"></div>
 						<label for="name" class="col-md-2 col-form-label"></label>
 						<div class="col-md-4">
 							<div th:if="${error}" th:text="${error}" class = "alert alert-danger"></div>
 						</div>
-					</div>
+					</div> -->
 					
 					<!-- <h3 style="color: green; text-align: center;">${success}</h3> -->
 					<!-- <div class="row mb-4">
@@ -87,6 +93,7 @@
 						<label for="name" class="col-md-2 col-form-label">Name</label>
 						<div class="col-md-4">
 							<input type="text" class="form-control" id="name" th:field="*{studentname}">
+							<label th:if="${#fields.hasErrors('studentname')}" th:errors="*{studentname}" style="color: red;">Error</label>
 						</div>
 					</div>
 					<div class="row mb-4">
@@ -94,6 +101,7 @@
 						<label for="dob" class="col-md-2 col-form-label">DOB</label>
 						<div class="col-md-4">
 							<input type="date" class="form-control" id="dob" th:field="*{dob}">
+							<label th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}" style="color: red;">Error</label>
 						</div>
 					</div>
 					<fieldset class="row mb-4">
@@ -111,7 +119,7 @@
 									type="radio" name="gridRadios" id="gridRadios2" value="Female">
 								<label class="form-check-label" for="gridRadios2">Female</label>
 							</div>
-
+<label th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}" style="color: red;">Error</label>
 						</div>
 					</fieldset>
 
@@ -120,6 +128,7 @@
 						<label for="phone" class="col-md-2 col-form-label">Phone</label>
 						<div class="col-md-4">
 							<input type="text" class="form-control" id="phone" th:field="*{phone}">
+							<label th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" style="color: red;">Error</label>
 						</div>
 					</div>
 					<div class="row mb-4">
@@ -131,20 +140,24 @@
 								<option value="Diploma in IT">Diploma in IT</option>
 								<option value="Bachelor of Computer Science">Bachelor of Computer Science</option>
 							</select>
+							<label th:if="${#fields.hasErrors('education')}" th:errors="*{education}" style="color: red;">Error</label>
 						</div>
 					</div>
 					<fieldset class="row mb-4">
 						<div class="col-md-2"></div>
 						<legend class="col-form-label col-md-2 pt-0">Attend</legend>
 
-				<div class="col-md-6 offset-md-4 ms-4" style="width:350px">
-				<div th:each="data: ${courseList}" style="display:inline; padding:5px;">
+				<div class="col-md-6 offset-md-4 ms-4">
+				<div th:each="data: ${courseList}" style="display:inline;">
 							
 			<input class="form-check-input" type="checkbox" th:field="*{attendCourses}" id="gridRadios1" th:value="${data.classid}" > 
 			<span th:text="${data.classname}"></span>
+			
 			</div>
+			<label th:if="${#fields.hasErrors('attendCourses')}" th:errors="*{attendCourses}" style="color: red;">Error</label>
 						</div>
 					</fieldset>
+					
 					<div class="row mb-4">
 						<div class="col-md-2"></div>
 						<label for="name" class="col-md-2 col-form-label">Photo</label>
@@ -157,7 +170,9 @@
 						<div class="col-md-4"></div>
 
 						<div class="col-md-4">
-							<button type="reset" class="btn btn-danger ">Reset</button>
+						<a href="setupaddstudent">
+							<button type="button" class="btn btn-danger ">Reset</button>
+						</a>
 							<button type="submit" class="btn btn-secondary col-md-2"
 								data-bs-toggle="modal" data-bs-target="#exampleModal">
 								Add</button>				

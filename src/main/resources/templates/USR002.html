@@ -79,11 +79,11 @@
 						<div th:if="${password}" th:text="${password}" class = "alert alert-danger"></div>
 					</div>
 			</div> -->
-					<div style="color: red;">
-						<h2 class="col-md-6 offset-md-2 mb-5 mt-4" th:if="${password}" th:text="${password}"></h2>
+					<div style="color: red;" class="col-md-6 offset-md-2 mb-5 mt-4 alert alert-danger" 
+					th:if="${password}" th:text="${password}">
 					</div> 
-					<div style="color: red;">
-						<h2 class="col-md-6 offset-md-2 mb-5 mt-4" th:if="${error}" th:text="${error}"></h2>
+					<div style="color: red;" class="col-md-6 offset-md-2 mb-5 mt-4 alert alert-danger" 
+					th:if="${error}" th:text="${error}">
 					</div>
 					
 					<div class="row mb-4">
@@ -98,6 +98,7 @@
 						<label for="email" class="col-md-2 col-form-label">Name</label>
 						<div class="col-md-4">
 							<input type="text" class="form-control" th:field="*{username}">
+							<label th:if="${#fields.hasErrors('username')}" th:errors="*{username}" style="color: red;">Error</label>
 						</div>
 					</div>
 					<div class="row mb-4">
@@ -105,6 +106,7 @@
 						<label for="email" class="col-md-2 col-form-label">Email</label>
 						<div class="col-md-4">
 							<input type="email" class="form-control" id="email" th:field="*{useremail}">
+							<label th:if="${#fields.hasErrors('useremail')}" th:errors="*{useremail}" style="color: red;">Error</label>
 						</div>
 					</div>
 					<div class="row mb-4">
@@ -112,6 +114,7 @@
 						<label for="Passowrd" class="col-md-2 col-form-label">Password</label>
 						<div class="col-md-4">
 							<input type="password" class="form-control" id="name" th:field="*{password}">
+							<label th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: red;">Error</label>
 						</div>
 					</div>
 					<div class="row mb-4">
@@ -119,6 +122,7 @@
 						<label for="confirmPassword" class="col-md-2 col-form-label">Confirm Password</label>
 						<div class="col-md-4">
 							<input type="password" class="form-control" id="confirmPassword" th:field="*{conpassword}">
+							<label th:if="${#fields.hasErrors('conpassword')}" th:errors="*{conpassword}" style="color: red;">Error</label>
 						</div>
 					</div>
 					<div class="row mb-4">
@@ -129,6 +133,7 @@
 								<option value="Admin" selected>Admin</option>
 								<option value="User">User</option>
 							</select>
+							<label th:if="${#fields.hasErrors('role')}" th:errors="*{role}" style="color: red;">Error</label>
 						</div>
 					</div>
 					<div class="row mb-4">

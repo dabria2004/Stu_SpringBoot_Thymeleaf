@@ -5,6 +5,8 @@ import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,22 +44,12 @@ public class StudentController {
 	}
 	
 	@RequestMapping(value = "/addstudent", method=RequestMethod.POST)
-	public String addstudent(@ModelAttribute("sbean")StudentBean sbean,ModelMap model) {
+	public String addstudent(@ModelAttribute("sbean") @Validated StudentBean sbean,BindingResult bs, ModelMap model) {
 		
+		List<StudentResponseDTO> studentList = studentDao.selectAll();
 		List<ClassResponseDTO> courseList = classDao.selectAll();
 		model.addAttribute("courseList", courseList);
-		if (sbean.getAttendCourses().size() == 0) {
-			model.addAttribute("error", "Fill the blank !!");
-			model.addAttribute("data", sbean);
-			return "STU001";
-		}
-		if (sbean.getStudentname().isBlank() || sbean.getDob().isBlank() || sbean.getGender().isBlank()
-				|| sbean.getPhone().isBlank() || sbean.getEducation().isBlank()) {
-			model.addAttribute("error", "Fill the blank !!");
-			model.addAttribute("data", sbean);
-			return "STU001";
-		}
-		List<StudentResponseDTO> studentList = studentDao.selectAll();
+		System.out.println(studentList);
 		if (studentList == null) {
 			studentList = new ArrayList<>();
 		}
@@ -68,6 +60,24 @@ public class StudentController {
 			String userId = String.format("STU%03d", tempId);
 			sbean.setStudentid(userId);
 		}
+		if(bs.hasErrors()) {
+			System.out.println("Taw 123123123123thar");
+			return "STU001";
+		}
+		
+//		else if (sbean.getAttendCourses().size() == 0) {
+//			model.addAttribute("error", "Fill the blank !!");
+//			model.addAttribute("data", sbean);
+//			return "STU001";
+//		}
+//		else if (sbean.getStudentname().isBlank() || sbean.getDob().isBlank() || sbean.getGender().isBlank()
+//				|| sbean.getPhone().isBlank() || sbean.getEducation().isBlank()) {
+//			model.addAttribute("error", "Fill the blank !!");
+//			model.addAttribute("data", sbean);
+//			return "STU001";
+//		}
+		
+	
 		StudentRequestDTO dto = new StudentRequestDTO();
 		dto.setStudentid(sbean.getStudentid());
 		dto.setStudentname(sbean.getStudentname());
@@ -81,20 +91,19 @@ public class StudentController {
 		for (int i = 0; i < attendCourses.length; i++) {
 			studentDao.insertStudentCourse(sbean.getStudentid(), attendCourses[i]);
 		}
+		System.out.println("Taw thar");
 		return "redirect:/setupaddstudentagain";	
-	}
+		}
+	
 	
 	@GetMapping("/setupstudentsearch")
 	public String studentManagement(ModelMap model) {	
-		
 		List<StudentResponseDTO> studentList = studentDao.selectAll();
-		List<ClassResponseDTO> cdto = new ArrayList<>();
 		for (StudentResponseDTO student : studentList) {
 			List<String> clist = classDao.selectCidByStuid(student.getStudentid());
 			student.setAttendCourses(clist);
 		}
 		model.addAttribute("studentList", studentList);
-		model.addAttribute("courseList", cdto);
 		return "STU003";
 	}
 	
@@ -123,21 +132,27 @@ public class StudentController {
 	}
 	
 	@PostMapping("/updatestudent")
-	public String updateStudent(@ModelAttribute("sbean") StudentBean sbean, ModelMap model) {
+	public String updateStudent(@ModelAttribute("sbean") @Validated StudentBean sbean, BindingResult bs, ModelMap model) {
+		
 		System.out.println("sbean => " + sbean);
 		List<ClassResponseDTO> courseList = classDao.selectAll();
 		model.addAttribute("courseList", courseList);
-		if (sbean.getAttendCourses().size() == 0) {
-			model.addAttribute("error", "Fill the blank !!");
+		
+		if(bs.hasErrors()) {
 			model.addAttribute("data", sbean);
 			return "STU002";
 		}
-		if (sbean.getStudentname().isBlank() || sbean.getDob().isBlank() || sbean.getGender().isBlank()
-				|| sbean.getPhone().isBlank() || sbean.getEducation().isBlank()) {
-			model.addAttribute("error", "Fill the blank !!");
-			model.addAttribute("data", sbean);
-			return "STU002";
-		}
+//		if (sbean.getAttendCourses().size() == 0) {
+//			model.addAttribute("error", "Fill the blank !!");
+//			model.addAttribute("data", sbean);
+//			return "STU002";
+//		}
+//		if (sbean.getStudentname().isBlank() || sbean.getDob().isBlank() || sbean.getGender().isBlank()
+//				|| sbean.getPhone().isBlank() || sbean.getEducation().isBlank()) {
+//			model.addAttribute("error", "Fill the blank !!");
+//			model.addAttribute("data", sbean);
+//			return "STU002";
+//		}
 		
 		StudentRequestDTO dto = new StudentRequestDTO();
 		dto.setStudentid(sbean.getStudentid());

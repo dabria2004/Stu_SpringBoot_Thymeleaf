@@ -12,7 +12,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class UserBean {
-	@NotEmpty
+	
 	String userid;
 	@NotEmpty
 	String username;

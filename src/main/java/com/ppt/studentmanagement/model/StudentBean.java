@@ -13,7 +13,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class StudentBean {
-	@NotEmpty
+	
 	private String studentid;
 	@NotEmpty
 	private String studentname;
@@ -27,8 +27,7 @@ public class StudentBean {
 	private String education;
 	@NotEmpty
 	private List<String> attendCourses;
-	public StudentBean(@NotEmpty String studentid, @NotEmpty String studentname, @NotEmpty String dob,
-			@NotEmpty String gender, @NotEmpty String phone, @NotEmpty String education) {
+	public StudentBean(String studentid, String studentname, String dob, String gender, String phone, String education) {
 		super();
 		this.studentid = studentid;
 		this.studentname = studentname;

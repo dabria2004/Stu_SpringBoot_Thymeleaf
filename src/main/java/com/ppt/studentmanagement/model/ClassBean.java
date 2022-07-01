@@ -12,7 +12,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class ClassBean {
-	@NotEmpty
+	
 	private String classid;
 	@NotEmpty(message="Classname cannot be blank")
 	private String classname;

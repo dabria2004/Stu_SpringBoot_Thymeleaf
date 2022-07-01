@@ -33,6 +33,7 @@ public class ClassController {
 		String classid = String.format("COU%03d", tempId);
 		cbean.setClassid(classid);
 		}
+//		model.addAttribute("success", "Successfully Registered!!");
 		return new ModelAndView("BUD003", "cbean", cbean);
 	}
 	
@@ -66,7 +67,7 @@ public class ClassController {
 			System.out.println("ClassController => " + dto.getClassid() + " " + dto.getClassname());
 			int rs = cdao.insertData(dto);
 			if (rs > 0) {
-				return "redirect:/setupaddclass";
+				return "redirect:/setupaddclassagain";
 			} 
 			else {
 				model.addAttribute("fail", "Insert Failed!!");
@@ -74,5 +75,4 @@ public class ClassController {
 			}
 		}
 	}
-
 }

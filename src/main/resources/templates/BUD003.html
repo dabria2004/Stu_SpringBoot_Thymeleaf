@@ -24,12 +24,16 @@
 					<a href="menu"><h3>Student Registration</h3></a>
 				</div>
 				<div class="col-md-6">
-            <p>User: 
-	            <th:block th:text="${session.userInfo.userid}"></th:block>
-	            <th:block th:text="${session.userInfo.username}"></th:block>
-            </p>
-            <p>Current Date : <th:block th:text="${session.date}"></th:block></p>
-        </div>
+					<p>
+						User:
+						<th:block th:text="${session.userInfo.userid}"></th:block>
+						<th:block th:text="${session.userInfo.username}"></th:block>
+					</p>
+					<p>
+						Current Date :
+						<th:block th:text="${session.date}"></th:block>
+					</p>
+				</div>
 				<div class="col-md-1">
 					<input type="button" class="btn-basic" id="lgnout-button"
 						value="Log Out" onclick="location.href='logout'">
@@ -41,48 +45,38 @@
 	<!-- <div id="testsidebar">Hello World </div> -->
 	<div class="container">
 		<div class="sidenav">
-        
-        <button class="dropdown-btn" > Class Management <i class="fa fa-caret-down"></i></button>
-        
-            <div class="dropdown-container">
-          <a href="setupaddclass">Course Registration </a>
-          <a href="setupaddstudent">Student Registration </a>
-          <a href="setupstudentsearch">Student Search </a>
-        </div>
-        <a href="setupusersearch">Users Management</a>
-      </div>
+
+			<button class="dropdown-btn">
+				Class Management <i class="fa fa-caret-down"></i>
+			</button>
+
+			<div class="dropdown-container">
+				<a href="setupaddclass">Course Registration </a> <a
+					href="setupaddstudent">Student Registration </a> <a
+					href="setupstudentsearch">Student Search </a>
+			</div>
+			<a href="setupusersearch">Users Management</a>
+		</div>
 		<div class="main_contents">
 			<div id="sub_content">
 				<form action="addclass" method="post" th:object="${cbean}">
-					<!-- <div style="color: red;">
-						<h2 th:text="${successMessage}">Error</h2>
-					</div> -->
 					
-					<!-- <p><th:block th:text="${error}"></th:block></p> -->
-						
-			<div class="row mb-4">
-				<div class="col-md-2"></div>
-					<label for="name" class="col-md-2 col-form-label"></label>
-					<div class="col-md-4">
-					<div th:if="${success}" th:text="${success}" class = "alert alert-success"></div>
-				</div>
-			</div>	
-			<!-- <div class="row mb-4">
-				<div class="col-md-2"></div>
-					<label for="name" class="col-md-2 col-form-label"></label>
-					<div class="col-md-4">
-					<div th:if="${success}" th:text="${success}" class = "alert alert-success"></div>
-				</div>
-			</div> -->
-						
-					
-					<!-- <span th:if="${errorMessage}"  th:text="${errorMessage}">Error</span> -->
 					<h2 class="col-md-6 offset-md-2 mb-5 mt-4">Course Registration</h2>
+
+					<div class="row mb-4">
+						<div class="col-md-2"></div>
+						<label for="name" class="col-md-2 col-form-label"></label>
+						<div class="col-md-4">
+							<div th:if="${success}" th:text="${success}"
+								class="alert alert-success"></div>
+						</div>
+					</div>
 					<div class="row mb-4">
 						<div class="col-md-2"></div>
 						<label for="id" class="col-md-2 col-form-label"> ID</label>
 						<div class="col-md-4">
-							<input type="text" class="form-control" id="id" th:field="*{classid}">
+							<input type="text" class="form-control" id="id"
+								th:field="*{classid}">
 						</div>
 					</div>
 
@@ -90,8 +84,8 @@
 						<div class="col-md-2"></div>
 						<label for="name" class="col-md-2 col-form-label">Name</label>
 						<div class="col-md-4">
-							<input type="text" class="form-control" id="name" th:field="*{classname}">
-							<label th:if="${#fields.hasErrors('classname')}" th:errors="*{classname}" style="color: red;">Error</label>
+							<input type="text" class="form-control" id="name" th:field="*{classname}"> 
+			<label th:if="${#fields.hasErrors('classname')}" th:errors="*{classname}" style="color: red;">Error</label>
 						</div>
 					</div>
 
@@ -100,28 +94,14 @@
 						<div class="col-md-4"></div>
 
 						<div class="col-md-6">
-
+							<a href="setupaddclass">
+								<button type="button" class="btn btn-danger ">Reset </button>
+							</a>
 
 							<button type="submit" class="btn btn-secondary col-md-2"
 								data-bs-toggle="modal" data-bs-target="#exampleModal">Add</button>
 							<div class="modal fade" id="exampleModal" tabindex="-1"
 								aria-labelledby="exampleModalLabel" aria-hidden="true">
-								<!-- <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Course Registration</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <h5 style="color: rgb(127, 209, 131);">Registered Succesfully !</h5>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-success col-md-2" data-bs-dismiss="modal">Ok</button>
-                               
-                            </div>
-                        </div>
-                    </div> -->
 							</div>
 
 						</div>
